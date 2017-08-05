@@ -7,6 +7,16 @@
 	<link rel="stylesheet" type="text/css" href="styles/circles.css">
 	<script src="/socket.io/socket.io.js"></script>
 	<script>var socket = io();</script>
+	<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+	<script type="text/javascript">
+
+        var PUBNUB_demo = PUBNUB.init({
+            publish_key: 'pub-c-b2cd43f5-6ead-4cfc-9d88-ffd62dc2ae83',
+            subscribe_key: 'sub-c-68c4e2e6-7a2d-11e7-abcd-02ee2ddab7fe'
+        });
+
+	</script>
+
 	<script type="text/paperscript" canvas="myCanvas">
 
 	var keyData = {
