@@ -1,0 +1,24 @@
+{
+  "name": "tonespace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "circles.html",
+  "dependencies": {
+    "howler": "^2.0.4",
+    "paper": "^0.11.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tasdiquec/tonespace.git"
+  },
+  "author": "Tasdique Chowdhury, Omar Miah, Sammy Akharaz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tasdiquec/tonespace/issues"
+  },
+  "homepage": "https://github.com/tasdiquec/tonespace#readme"
+}
