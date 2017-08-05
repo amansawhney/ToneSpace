@@ -190,15 +190,31 @@
 			newCircle.fillColor = keyData[event.key].color;
 			keyData[event.key].sound.play();
             circles.push(newCircle);
-            pubnub.publish({
+            console.log(circles);
+            console.log(event);
+			pubnub.publish({
                 channel: ['my_channel'],
-                message: {
-                    circles: circles // your array goes here
-                }
+                message: event
+
             });
+
 
 		}
 	}
+
+	function stream(key) {
+	var maxPoint = new Point(view.size.width, view.size.height);
+			var randomPoint = Point.random();
+			var point = maxPoint * randomPoint;
+			var newCircle = new Path.Circle(point, 500);
+			newCircle.fillColor = keyData[key].color;
+			keyData[key].sound.play();
+            circles.push(newCircle);
+            console.log(circles);
+            console.log(event);
+	}
+
+
 
 
 
@@ -218,10 +234,17 @@
 	function me() {
 		console.log('hi');
 	}
-	pubnub.subscribe({
-            channel: ['my_channel'],
-            callback: me
-        })
+	pubnub.addListener({
+    message: function(message){
+    stream(message.message.key);
+    }
+
+})
+
+pubnub.subscribe({
+    channels: ['my_channel']
+});
+
 
 </script>
 	<script>
