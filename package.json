@@ -9,7 +9,9 @@
     "paper": "^0.11.4",
     "socket.io": "^2.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
