@@ -2,22 +2,24 @@
 <html>
 <head>
 	<title>ToneSpace</title>
-	<script type="text/javascript" src="../node_modules/paper/dist/paper-full.js"></script>
-	<script type="text/javascript" src="../node_modules/howler/src/howler.core.js"></script>
+	<script type="text/javascript" src="node_modules/paper/dist/paper-full.js"></script>
+	<script type="text/javascript" src="node_modules/howler/src/howler.core.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles/circles.css">
-	<script src="/socket.io/socket.io.js"></script>
-	<script>var socket = io();</script>
-	<script src="https://cdn.pubnub.com/pubnub.min.js"></script>
+	<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.13.0.js"></script>
 	<script type="text/javascript">
 
-        var PUBNUB_demo = PUBNUB.init({
-            publish_key: 'pub-c-b2cd43f5-6ead-4cfc-9d88-ffd62dc2ae83',
-            subscribe_key: 'sub-c-68c4e2e6-7a2d-11e7-abcd-02ee2ddab7fe'
-        });
+
 
 	</script>
 
 	<script type="text/paperscript" canvas="myCanvas">
+        var channel = 'my-draw-demo';
+
+
+        var pubnub = new PubNub({
+            publish_key: 'pub-c-b2cd43f5-6ead-4cfc-9d88-ffd62dc2ae83',
+            subscribe_key: 'sub-c-68c4e2e6-7a2d-11e7-abcd-02ee2ddab7fe'
+        });
 
 	var keyData = {
 		q: {
@@ -187,11 +189,22 @@
 			var newCircle = new Path.Circle(point, 500);
 			newCircle.fillColor = keyData[event.key].color;
 			keyData[event.key].sound.play();
-			circles.push(newCircle);
+            circles.push(newCircle);
+            pubnub.publish({
+                channel: ['my_channel'],
+                message: {
+                    circles: circles // your array goes here
+                }
+            });
+
 		}
 	}
 
+
+
+
 	function onFrame(event) {
+
 		for(var i = 0; i < circles.length; i++) {
 			circles[i].fillColor.hue +=1;
 			circles[i].scale(0.92);
@@ -202,8 +215,18 @@
 			}
 		}
 	}
+	function me() {
+		console.log('hi');
+	}
+	pubnub.subscribe({
+            channel: ['my_channel'],
+            callback: me
+        })
 
 </script>
+	<script>
+
+	</script>
 </head>
 <body>
 	<canvas id="myCanvas" resize></canvas>
